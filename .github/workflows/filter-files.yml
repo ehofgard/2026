@@ -1,0 +1,61 @@
+name: filter-files
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set SLUG from PR title
+        run: echo "SLUG=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+
+      - name: List changed files
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main:origin/main
+          files="$(git diff --name-only origin/main...HEAD)"
+          echo "$files"
+          echo "files=$(echo "$files" | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Validate paths + slug
+        id: check
+        shell: bash
+        run: |
+          python3 bin/filter_paths.py "$SLUG" ${{ steps.changed.outputs.files }}
+
+      - name: Comment stable URL
+        if: success()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ✅ If this PR passes checks, it will be deployed to the stable preview URL:
+
+            https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/blog/2026/${{ env.SLUG }}/
+
+      - name: Comment failure details
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ❌ Submission validation failed.
+
+            Please ensure:
+            - PR title is the slug (format: 2026-MM-DD-your-slug)
+            - Only allowed files are modified
+
+            See the “Checks” tab for the exact error output.
