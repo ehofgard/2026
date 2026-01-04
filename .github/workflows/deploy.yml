@@ -21,13 +21,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      #- name: Merge ready PRs (optional)
-      #  run: |
-      #    git checkout main
-      #    bash bin/merge_prs.sh
-      #  env:
-      #    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Merge ready PRs (optional)
+      #   run: |
+      #     git checkout main
+      #     bash bin/merge_prs.sh
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
@@ -58,35 +58,30 @@ jobs:
         run: |
           pip3 install --upgrade nbconvert
 
-            - name: Build Jekyll 🏗️
+      - name: Build Jekyll 🏗️
         env:
           JEKYLL_ENV: production
         run: |
           set -euo pipefail
           bundle exec jekyll build --future --trace
 
-      - name: Debug: list build output + require index.html
+      - name: Debug: verify _site + require index.html
         run: |
           set -euo pipefail
           echo "PWD=$(pwd)"
           echo "Top-level files:"
           ls -la | head -n 200
-
           echo "Config sanity:"
           ruby -v
           bundle -v
           bundle exec jekyll -v || true
-          echo "baseurl from _config.yml:"
+          echo "baseurl/url from _config.yml:"
           grep -nE '^(url:|baseurl:)' _config.yml || true
-
           echo "Listing _site:"
           ls -la _site || true
           echo "Looking for index.html:"
           find _site -maxdepth 2 -name index.html -print || true
-
           test -f _site/index.html
-
-          # recommended for GitHub Pages hosting of prebuilt sites:
           touch _site/.nojekyll
 
       - name: Purge unused CSS 🧹
@@ -100,8 +95,3 @@ jobs:
           branch: gh-pages
           folder: _site
           clean: true
-
-
-
-
-     
