@@ -65,7 +65,7 @@ jobs:
           set -euo pipefail
           bundle exec jekyll build --future --trace
 
-      - name: Debug: verify _site + require index.html
+      - name: "Debug: verify _site + require index.html"
         run: |
           set -euo pipefail
           echo "PWD=$(pwd)"
