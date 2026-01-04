@@ -1,4 +1,6 @@
 ---
 title: home
-redirect_to: /about/
+permalink: /
+redirect_to:
+  - /about/
 ---
