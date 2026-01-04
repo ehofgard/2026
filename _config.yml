@@ -198,6 +198,7 @@ keep_files:
 
 # Plug-ins
 plugins:
+  - jekyll-redirect-from
   - jekyll-archives-v2
   - jekyll-email-protect
   - jekyll-feed
