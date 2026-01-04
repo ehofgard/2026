@@ -60,10 +60,7 @@ jobs:
           pip3 install --upgrade nbconvert
 
       - name: Build Jekyll 🏗️
-        env:
-          JEKYLL_ENV: production
-        run: |
-          bundle exec jekyll build --future
+        run: bash bin/cibuild
 
       - name: Purge unused CSS 🧹
         run: |

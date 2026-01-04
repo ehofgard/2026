@@ -7,10 +7,13 @@ on:
 
 permissions:
   pull-requests: write
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
     steps:
       - name: Checkout PR
         uses: actions/checkout@v4
@@ -31,22 +34,71 @@ jobs:
           echo "files=$(echo "$files" | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
 
       - name: Validate paths + slug
-        id: check
+        id: pathcheck
         shell: bash
         run: |
+          set -euo pipefail
           python3 bin/filter_paths.py "$SLUG" ${{ steps.changed.outputs.files }}
 
-      - name: Comment stable URL
+      - name: Setup Ruby 💎
+        if: success()
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+
+      - name: Setup system deps 🔧
+        if: success()
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+      
+
+      - name: Setup Python 🐍
+        if: success()
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+        run: |
+          pip3 install --upgrade nbconvert
+
+      - name: Build Jekyll 🏗️
+        id: build
+        if: success()
+        shell: bash
+        run: |
+          set +e
+          export JEKYLL_ENV=production
+          bundle exec jekyll build --future > build.log 2>&1
+          code=$?
+          tail -n 120 build.log
+          exit $code
+
+      - name: Comment success
         if: success()
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ✅ If this PR passes checks, it will be deployed to the stable preview URL:
+            ✅ Submission checks passed:
+            - file structure validated
+            - site builds successfully in CI
 
-            https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/blog/2026/${{ env.SLUG }}/
+            Next step: wait for organizer review. If accepted, we will merge this PR.
 
       - name: Comment failure details
+        if: failure()
+        shell: bash
+        run: |
+          echo "---- failure context ----"
+          if [ -f build.log ]; then
+            tail -n 120 build.log > failure_snippet.txt
+          else
+            echo "Validation failed before build (likely slug/path issue). Check the job logs for details." > failure_snippet.txt
+          fi
+
+      - name: Post failure comment
         if: failure()
         uses: peter-evans/create-or-update-comment@v4
         with:
@@ -54,8 +106,14 @@ jobs:
           body: |
             ❌ Submission validation failed.
 
-            Please ensure:
-            - PR title is the slug (format: 2026-MM-DD-your-slug)
-            - Only allowed files are modified
+            **Common causes**
+            - PR title must be the slug (format: `2026-MM-DD-your-slug`)
+            - Only allowed files may be changed:
+              - `_posts/<slug>.md` (or `.html`)
+              - `assets/img/<slug>/...`
+              - `assets/html/<slug>/...`
+              - `assets/bibliography/<slug>.bib`
 
-            See the “Checks” tab for the exact error output.
+            **Details**
+            See the **Checks** tab above.  
+            The CI log prints the last lines of the build output.
