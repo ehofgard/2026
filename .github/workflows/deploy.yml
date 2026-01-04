@@ -27,12 +27,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Merge ready PRs (optional)
-        run: |
-          git checkout main
-          bash bin/merge_prs.sh
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      #- name: Merge ready PRs (optional)
+      #  run: |
+      #    git checkout main
+      #    bash bin/merge_prs.sh
+      #  env:
+      #    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
