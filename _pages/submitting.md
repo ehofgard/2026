@@ -9,7 +9,7 @@ nav_order: 3
 
 ## How to Submit to the GRaM Blogpost Track
 
-The GRaM Blogpost–Tutorial track follows an **open, GitHub-based submission process**, designed to reduce friction for authors and reviewers while preserving a double-blind review standard.
+The GRaM Blogpost–Tutorial track follows an **open, GitHub-based submission process** while preserving a double-blind review standard.
 
 ---
 
@@ -17,8 +17,6 @@ The GRaM Blogpost–Tutorial track follows an **open, GitHub-based submission pr
 
 Submissions **must be anonymized for review**.  
 Authors submit their blog posts via a **GitHub pull request** to the [GRaM blog 2026 Repo](https://github.com/gram-blogposts/2026).
-
-<!-- Each pull request automatically builds and deploys the post to a **temporary public URL**, which reviewers use to read and evaluate the submission. -->
 
 Reviewers are instructed **not to inspect git history or repository metadata**, which may reveal author identity. This process is no less double-blind than reviewing papers already available on public preprint servers, a standard practice in machine learning.
 
@@ -47,16 +45,11 @@ Submissions are validated automatically.
      `assets/html/YYYY-MM-DD-[submission-name]/`
    - References in  
      `assets/bibliography/YYYY-MM-DD-[submission-name].bib`
-3. **Do not modify any other files.**
+3. **Do not modify any other files.** An automated pipeline will verify the file structure. See section below!
 4. **Preview locally** using the provided devcontainer (recommended).
 5. **Open a pull request** to the main branch:
    - The PR title must exactly match the submission name.
-6. The automated pipeline will:
-   - verify the file structure,
-   - deploy the post to a public preview URL,
-   - report the URL in the pull request.
-7. **Register the submission on OpenReview**, including the preview URL.
-
+  
 Updates must be made by **editing the existing pull request**, not by opening a new one.
 
 ---
