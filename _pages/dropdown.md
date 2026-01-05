@@ -1,6 +1,6 @@
 ---
 layout: page
-title: past iterations
+title: editions
 nav: true
 nav_order: 99
 dropdown: true
@@ -9,6 +9,6 @@ children:
     permalink: https://gram-blogposts.github.io/2026/
   - title: divider
   - title: 2024
-    permalink: https://gram-blogposts.github.io/
+    permalink: https://gram-blogposts.github.io/2024/
   - title: divider
 ---
