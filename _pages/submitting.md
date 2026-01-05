@@ -105,7 +105,7 @@ Detailed camera-ready instructions, including de-anonymization, will be provided
 
 ---
 
-###
+### FAQs
 
 Feel free to reach out to the organizers at:
 organizers [at] gram-workshop [dot] org
