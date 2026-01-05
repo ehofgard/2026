@@ -7,13 +7,15 @@ nav: true
 nav_order: 3
 ---
 
-## How to Submit to the GRaM Blogpost Track
+## Table of contents
+{:toc}
 
-The GRaM Blogpost–Tutorial track follows an **open, GitHub-based submission process** while preserving a double-blind review standard.
+## How to Submit to the GRaM Blogpost Track
+The GRaM Blogpost–Tutorial track follows an **open, GitHub-based submission process** while preserving a double-blind review standard. Submissions are made as pull requests to a public repository and reviewed exclusively via the deployed website.
 
 ---
 
-### Review model and anonymity
+## Review model and anonymity
 
 Submissions **must be anonymized for review**.  
 Authors submit their blog posts via a **GitHub pull request** to the [GRaM blog 2026 Repo](https://github.com/gram-blogposts/2026).
@@ -24,82 +26,114 @@ Authors who require stricter anonymity may submit from a **new GitHub account wi
 
 ---
 
-### Submission template and infrastructure
+## Submission template and infrastructure
 
-The GRaM blog uses the **al-folio** Jekyll template, with automated builds handled by **GitHub Actions** and Docker.
+The GRaM blog uses the **al-folio** Jekyll template, with automated builds handled by **GitHub Actions**.
 
 Submissions are validated automatically.  
-**Any deviation from the required file structure will cause the submission to be rejected**, so please follow the instructions carefully.
+⚠️ Any deviation from the required file structure will cause the submission to be rejected, so please follow the instructions carefully.
 
 ---
 
-### Quick submission overview
 
-1. **Fork or download the [GRaM blog 2026 Repo](https://github.com/gram-blogposts/2026).**
-2. **Create a single blog post**, anonymized for review:
-   - A Markdown file in `_posts/` named  
-     `YYYY-MM-DD-[submission-name].md`
-   - Static images in  
-     `assets/img/YYYY-MM-DD-[submission-name]/`
-   - Interactive HTML (optional) in  
-     `assets/html/YYYY-MM-DD-[submission-name]/`
-   - References in  
-     `assets/bibliography/YYYY-MM-DD-[submission-name].bib`
-3. **Do not modify any other files.** An automated pipeline will verify the file structure. See section below!
-4. **Preview locally** using the provided devcontainer (recommended).
-5. **Open a pull request** to the main branch:
-   - The PR title must exactly match the submission name.
-  
-Updates must be made by **editing the existing pull request**, not by opening a new one.
+## Submission workflow (recommended)
 
----
+### 1. Fork the repository
 
-### File structure (strictly enforced)
+Fork the [GRaM blog 2026 Repo](https://github.com/gram-blogposts/2026) repository to your GitHub account.
+Do **not** rename the repository and do **not** modify site configuration files.
 
-Your submission must introduce **only** the following files:
 
+### 2. Prepare your submission (strictly limited scope)
+
+You must create **exactly one anonymized blog post**, introducing **only** the files listed below.
+
+### Quick submission overvie
+
+#### Required file structure
+
+```text
 _posts/
-YYYY-MM-DD-[submission-name].md
+  YYYY-MM-DD-[submission-name].md
+
 assets/
-bibliography/
-YYYY-MM-DD-[submission-name].bib
-img/
-YYYY-MM-DD-[submission-name]/
-html/
-YYYY-MM-DD-[submission-name]/
+  bibliography/
+    YYYY-MM-DD-[submission-name].bib
+  img/
+    YYYY-MM-DD-[submission-name]/
+  html/
+    YYYY-MM-DD-[submission-name]/   (optional)
+```
 
 The `YYYY-MM-DD-[submission-name]` identifier **must be identical across all files and folders**.
+No other files may be added or modified.
 
----
 
-### Post format
+### 3. Post format
 
 Each post must:
-- Use the `distill` template, 
-- include a clear title,
-- include a short abstract in the `description` field (2–3 sentences, no LaTeX or links),
-- include a table of contents,
-- list authors as `Anonymous` during review.
+
+- Use the `distill` template  
+- Include a clear title  
+- Include a short abstract in the `description` field  
+  (2–3 sentences, **no LaTeX, no links**)  
+- Include a table of contents  
+- List authors as `Anonymous` during review  
 
 Author information must be added **only after acceptance**, for the camera-ready version.
 
-<!--
-### Reviewing and acceptance
+---
 
+## Local preview (optional)
 
-Reviewers evaluate submissions **only via the deployed preview website**, not via repository contents. Accepted posts will be merged into the main site after the review period.
--->
+Authors may preview the site locally before submitting.
+
+If you have Ruby and Bundler installed:
+
+```bash
+git clone https://github.com/<your-username>/2026.git
+cd 2026
+bundle install
+bundle exec jekyll serve
+```
+
+The site will be available at:  
+`http://127.0.0.1:4000/`
 
 ---
 
-### Camera-ready
+## Submitting your pull request
 
-Detailed camera-ready instructions, including de-anonymization, will be provided after acceptance decisions are released.
+1. Double-check that the post is fully anonymized.
+2. Commit **only** the allowed files listed above.
+3. Push your changes to your fork.
+4. Open a pull request to the **main branch** of the GRaM Blog 2026 repository.
+5. The **pull request title must exactly match the submission name**.
+
+All updates must be made by **editing the same pull request**.  
+Do not open new pull requests for revisions.
 
 ---
 
-### FAQs
+## Camera-ready submission
 
-Feel free to reach out to the organizers at:
-organizers [at] gram-workshop [dot] org
-manuel.lecha [at] iit.it
+Upon acceptance, authors must:
+
+- De-anonymize the post  
+- Add author names, affiliations, and acknowledgements  
+- Apply any requested editorial or formatting changes  
+
+Detailed camera-ready instructions will be provided with acceptance notifications.
+
+---
+
+## Further questions
+
+The GRaM Blogpost track is inspired by the ICLR Blogpost track.  
+If you encounter technical issues with building or modifying the site, consulting their documentation may be helpful.
+
+For questions, contact the organizers:
+
+- organizers [at] gram-workshop [dot] org  
+- manuel.lecha [at] iit.it
+
