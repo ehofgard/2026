@@ -15,8 +15,6 @@ nav_order: 3
 - [Submission workflow (recommended)](#submission-workflow-recommended)
   - [1. Fork the repository](#1-fork-the-repository)
   - [2. Prepare your submission (strictly limited scope)](#2-prepare-your-submission-strictly-limited-scope)
-  - [Quick submission overvie](#quick-submission-overvie)
-    - [Required file structure](#required-file-structure)
   - [3. Post format](#3-post-format)
 - [Local preview (optional)](#local-preview-optional)
 - [Submitting your pull request](#submitting-your-pull-request)
@@ -62,10 +60,6 @@ Do **not** rename the repository and do **not** modify site configuration files.
 
 You must create **exactly one anonymized blog post**, introducing **only** the files listed below.
 
-### Quick submission overvie
-
-#### Required file structure
-
 ```text
 _posts/
   YYYY-MM-DD-[submission-name].md
@@ -107,12 +101,13 @@ If you have Ruby and Bundler installed:
 ```bash
 git clone https://github.com/<your-username>/2026.git
 cd 2026
+
 bundle install
+
 bundle exec jekyll serve
 ```
 
-The site will be available at:  
-`http://127.0.0.1:4000/`
+The site will be available at:  `http://127.0.0.1:4000/`
 
 ---
 
