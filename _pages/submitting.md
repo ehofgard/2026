@@ -8,7 +8,21 @@ nav_order: 3
 ---
 
 ## Table of contents
-{:toc}
+- [Table of contents](#table-of-contents)
+- [How to Submit to the GRaM Blogpost Track](#how-to-submit-to-the-gram-blogpost-track)
+- [Review model and anonymity](#review-model-and-anonymity)
+- [Submission template and infrastructure](#submission-template-and-infrastructure)
+- [Submission workflow (recommended)](#submission-workflow-recommended)
+  - [1. Fork the repository](#1-fork-the-repository)
+  - [2. Prepare your submission (strictly limited scope)](#2-prepare-your-submission-strictly-limited-scope)
+  - [Quick submission overvie](#quick-submission-overvie)
+    - [Required file structure](#required-file-structure)
+  - [3. Post format](#3-post-format)
+- [Local preview (optional)](#local-preview-optional)
+- [Submitting your pull request](#submitting-your-pull-request)
+- [Camera-ready submission](#camera-ready-submission)
+- [Further questions](#further-questions)
+
 
 ## How to Submit to the GRaM Blogpost Track
 The GRaM Blogpost–Tutorial track follows an **open, GitHub-based submission process** while preserving a double-blind review standard. Submissions are made as pull requests to a public repository and reviewed exclusively via the deployed website.
