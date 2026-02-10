@@ -71,6 +71,10 @@ _styles: >
 
 Data augmentation and equivariant neural networks assume that transformed 
 
+```markdown
+{% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/inherent-superficial.pdf" class="img-fluid" %}{% endraw %}
+```
+
 By integrating physical symmetryies into the model architecture as group invariances, equivariant neural networks ha
 This theme supports rendering beautiful math in inline and display modes using [MathJax 3](https://www.mathjax.org/) engine.
 You just need to surround your math expression with `$$`, like `$$ E = mc^2 $$`.
