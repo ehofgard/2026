@@ -38,17 +38,12 @@ bibliography: 2026-02-10-ToAugmentOrNot.bib
 #     for hyperlinks within the post to work correctly.
 #   - please use this format rather than manually creating a markdown table of contents.
 toc:
-  - name: Equations
-  - name: Images and Figures
-    subsections:
-      - name: Interactive Figures
-  - name: Citations
-  - name: Footnotes
-  - name: Code Blocks
-  - name: Diagrams
-  - name: Tweets
-  - name: Layouts
-  - name: Other Typography?
+  - name: Distributional Symmetry Breaking
+  - name: Proposed Metric
+  - name: Invariant Regression under Data Asymmetry
+  - name: Experiments
+  - name: Task Dependent Metric
+  - name: Conclusion
 
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
@@ -70,10 +65,13 @@ _styles: >
   }
 ---
 
-Note: please use the table of contents as defined in the front matter rather than the traditional markdown styling.
+**TL;DR:** We explore the implications of symmetry breaking in data distributions and present a new metric to quantify the amount of symmetry broken. We explore the implications of distributional symmetry breaking for machine learning practitioners. 
 
-## Equations
+## Distributional Symmetry Breaking
 
+Data augmentation and equivariant neural networks assume that transformed 
+
+By integrating physical symmetryies into the model architecture as group invariances, equivariant neural networks ha
 This theme supports rendering beautiful math in inline and display modes using [MathJax 3](https://www.mathjax.org/) engine.
 You just need to surround your math expression with `$$`, like `$$ E = mc^2 $$`.
 If you leave it inside a paragraph, it will produce an inline expression, just like $$ E = mc^2 $$.
@@ -453,3 +451,4 @@ This line is separated from the one above by two newlines, so it will be a _sepa
 
 This line is also a separate paragraph, but...
 This line is only separated by a single newline, so it's a separate line in the _same paragraph_.
+
