@@ -73,7 +73,21 @@ Data augmentation and equivariant neural networks assume that transformed
 
 ## Test Figure
 
-{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/7.jpg" class="img-fluid" %}
+<div class="row">
+  <div class="col-sm-4 text-center">
+    {% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/figures/likely_vs_unlikely_orientations.png" class="img-fluid" %}{% endraw %}
+    <p>(a) Distributional symmetry breaking</p>
+  </div>
+  <div class="col-sm-4 text-center">
+    {% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/figures/canonical_orientation.png" class="img-fluid" %}{% endraw %}
+    <p>(b) Canonicalization</p>
+  </div>
+  <div class="col-sm-4 text-center">
+    {% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/figures/inherent_superficial.png" class="img-fluid" %}{% endraw %}
+    <p>(c) Inherent vs. user-defined canonicalization</p>
+  </div>
+</div>
+
 
 
 
