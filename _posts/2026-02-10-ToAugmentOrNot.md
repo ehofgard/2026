@@ -73,7 +73,7 @@ Data augmentation and equivariant neural networks assume that transformed
 
 ## Test Figure
 
-{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/inherent_superficial.png" class="img-fluid" %}
+{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/orientations.png" class="img-fluid" %}
 
 
 
