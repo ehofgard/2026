@@ -5,7 +5,7 @@ description: Symmetry-aware methods for machine learning, such as data augmentat
 date: 2026-02-10
 future: true
 htmlwidgets: true
-hidden: false
+hidden: true
 
 # Mermaid diagrams
 mermaid:
