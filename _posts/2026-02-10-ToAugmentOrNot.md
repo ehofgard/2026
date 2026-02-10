@@ -72,7 +72,7 @@ _styles: >
 Data augmentation and equivariant neural networks assume that transformed 
 
 <div class="figure">
-  {% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/inherent-superficial.pdf" class="img-fluid" %}{% endraw %}
+  {% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/inherent_superficial.pdf" class="img-fluid" %}{% endraw %}
   <p class="caption">Distributional symmetry breaking in example datasets. Data transformations may not always be valid.</p>
 </div>
 
