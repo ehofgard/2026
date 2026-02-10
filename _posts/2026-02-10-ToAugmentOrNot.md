@@ -73,7 +73,7 @@ Data augmentation and equivariant neural networks assume that transformed
 
 ## Test Figure
 
-{% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/symmetry_breaking_flowchart.jpg" class="img-fluid" %}{% endraw %}
+{% raw %}{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/3d_pca_embeddings_qm9.png" class="img-fluid" %}{% endraw %}
 
 
 
