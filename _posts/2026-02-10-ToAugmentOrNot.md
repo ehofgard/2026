@@ -181,7 +181,7 @@ The value $$m(p_X)$$ determines whether there is discernible lack of uniformity 
 Let $$c\colon\mathcal{X} \rightarrow G$$ be a canonicalization function, denoting where on each orbit $$x$$ is. Since data augmentation destroys any information contained in $$c(x)$$, we wish to understand the dependence between orientations $$c(x)$$ and labels $$f(x)$$. A natural way to do this is to predict $$f(x)$$ directly from $$c(x)$$, where $$c(x)$$ is a randomly initialized, untrained equivariant neural network (a canonicalization function). We then compare the test criterion $$\mathcal{L}(c(x) \to f(x))$$ to that obtained when the inputs are randomly transformed by elements of the given group, $$\mathcal{L}_{\text{rot}} = \mathcal{L}(c(gx) \to f(gx)), g \sim G$$.  
 which removes any task-relevant information in the orientations (where $$\mathcal{L}$$ is the performance on the test set, e.g. accuracy/MAE).
 
-We first explore an artificial **QM7b dipole** canonicalization. This is a constructed example of a very task-relevant canonicalization, where molecules are aligned such that their dipole moments are along the $z$ axis. This makes it easy for a non-equivariant model to predict dipoles, while an equivariant model cannot exploit this alignment. This is confirmed empirically where with the dipole canonicalization, the FF augmentation setting outperforms an equivariant model. The task-dependent metric indeed yields a large signal when applied to the dipole-canonicalized dataset. **ModelNet** is another case where equivariance harms performance, and the task-dependent metric shows a large signal. In contrast, for the **QM9** properties shown, the metric shows a small signal. Thus, our preliminary experiments show that the task-dependent metric is generally larger for tasks where equivariance does **not** improve performance.
+We first explore an artificial **QM7b dipole** canonicalization. This is a constructed example of a very task-relevant canonicalization, where molecules are aligned such that their dipole moments are along the $z$ axis. This makes it easy for a non-equivariant model to predict dipoles, while an equivariant model cannot exploit this alignment. This is confirmed empirically where with the dipole canonicalization, the FF augmentation setting outperforms an equivariant model. The task-dependent metric indeed yields a large signal when applied to the dipole-canonicalized dataset. **ModelNet** is another case where equivariance harms performance, and the task-dependent metric shows a large signal. In contrast, for the **QM9** properties shown, the metric shows a small signal.
 
 {% include figure.liquid 
   path="assets/img/2026-02-10-ToAugmentOrNot/task_dependent_results.png"
@@ -189,7 +189,7 @@ We first explore an artificial **QM7b dipole** canonicalization. This is a const
   caption="(Top) QM7b dipole canonicalization performance. (Bottom) Task-dependent metric: Accuracy (ModelNet) or MAE (QM7b/QM9) of predicting the label from the canonicalization versus a baseline with random rotations. Values averaged over five seeds."
 %}
 
-The relative signal above shows the accuracy of predicting $$f(x)$$ from $$c(x)$$ vs. a baseline with randon rotations. The relative signal shows how $$\mathcal{L}$$ changes under rotation: $$\mathcal{L}_{rot} / \mathcal{L}$$ for error metrics (lower better) and $$\mathcal{L} / \mathcal{L}_{rot}$$ for accuracy (higher better). 
+The relative signal above shows the accuracy of predicting $$f(x)$$ from $$c(x)$$ vs. a baseline with randon rotations. The relative signal shows how $$\mathcal{L}$$ changes under rotation: $$\mathcal{L}_{rot} / \mathcal{L}$$ for error metrics (lower better) and $$\mathcal{L} / \mathcal{L}_{rot}$$ for accuracy (higher better). Thus, our experiments show that the task-dependent metric is generally larger for tasks where equivariance does **not** improve performance.
 
 ### Locality
 
@@ -203,14 +203,27 @@ For ModelNet40, we analogously constructed a local dataset by randomly selecting
 - In QM9, useful predictive structure resides in locally isotropic motifs. Equivariant models benefit from modeling these.
 - In ModelNet40, object-level canonicalization is more tightly coupled to the task (object identity), so breaking that alignment through augmentation removes useful signal. 
 
-Thus, the relevant question is not simply whether a dataset is canonicalized, but at what scale canonicalization interacts with the task. Local equivariance may help when symmetry breaking is primarily global and incidental (as in QM9), but hurt when canonical alignment itself carries task-relevant information (as in ModelNet40).
-
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/locality_exp.png" class="img-fluid" %}
 <div class="caption">
     Left: The local QM9 dataset (top) and results (bottom). Right: Local ModelNet40 results.
 </div>
 
+Thus, the relevant question is not simply whether a dataset is canonicalized, but at what scale canonicalization interacts with the task. Local equivariance may help when symmetry breaking is primarily global and incidental (as in QM9), but hurt when canonical alignment itself carries task-relevant information (as in ModelNet40).
+
 ## Conclusion
-Advice for practitioners
+
+We provide both empirical and theoretical analysis of distributional asymmetry and its implications for learning. Our interpretable metrics quantify the degree of symmetry-breaking present in a dataset without using any specific knowledge of the domain, thus providing practioners with a simple diagnostic for detecting distributional symmetry breaking in their datasets. Experiments revealed a high degree of symmetry-breaking in every benchmark dataset, yet %
+augmentation only impeded (test) performance for ModelNet40 and MNIST.
+
+Overall, these findings have intriguing implications for equivariant learning. First, they affirm that 
+if evaluated only on in-distribution validation data, non-equivariant models may appear accurate, yet fail to generalize under transformations. We provide a flowchart on how to use our metrics for practitioners.
+
+{% include figure.liquid 
+  path="assets/img/2026-02-10-ToAugmentOrNot/symm_breaking_flowchart.png"
+  class="img-fluid"
+  caption="Advice for practitioners on using our metric for model selection."
+%}
+
+Moreover, canonicalizing to data has been proposed as a flexible method for making black-box models globally equivariant <d-cite key="kaba2023equivariance"></d-cite>. However, if molecular datasets both are already canonicalized and still experience benefits from augmentation and equivariance, this suggests that they provide some **additional**, possibly **domain-specific** benefit beyond global equivariance that is currently unexplained. Finally, data augmentation is often considered universally beneficial for invariant tasks, yet we show that it can sometimes hurt performance on the test set. Predicting when and why different data augmentations can benefit learning, even in the case of nearly canonicalized data, is a useful future direction.
 
 ## References
