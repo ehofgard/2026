@@ -41,7 +41,7 @@ toc:
   - name: Introduction
   - name: Distributional Symmetry Breaking
   - name: Proposed Metric
-  - name: Theory: Invariant Regression under Data Asymmetry
+  - name: Theory
   - name: Experiments
   - name: Task Dependent Metric
   - name: Conclusion
