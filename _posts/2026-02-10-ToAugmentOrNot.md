@@ -212,7 +212,7 @@ Thus, the relevant question is not simply whether a dataset is canonicalized, bu
 
 ## Conclusion
 
-We provide both empirical and theoretical analysis of distributional asymmetry and its implications for learning. Our interpretable metrics quantify the degree of symmetry-breaking present in a dataset without using any specific knowledge of the domain, thus providing practioners with a simple diagnostic for detecting distributional symmetry breaking in their datasets. Experiments revealed a high degree of symmetry-breaking in every benchmark dataset, yet %
+We provide both empirical and theoretical analysis of distributional asymmetry and its implications for learning. Our interpretable metrics quantify the degree of symmetry-breaking present in a dataset without using any specific knowledge of the domain, thus providing practioners with a simple diagnostic for detecting distributional symmetry breaking in their datasets. Experiments revealed a high degree of symmetry-breaking in every benchmark dataset, yet
 augmentation only impeded (test) performance for ModelNet40 and MNIST.
 
 Overall, these findings have intriguing implications for equivariant learning. First, they affirm that 
