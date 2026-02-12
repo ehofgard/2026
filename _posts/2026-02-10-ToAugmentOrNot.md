@@ -44,8 +44,6 @@ toc:
   - name: Theory
   - name: Experiments
   - name: Hypotheses for Empirical Behavior
-    -name: Task Dependent Metric
-    -name: Local Equivariance
   - name: Conclusion
   - name: References
 
@@ -119,12 +117,12 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
 
   <figure style="flex: 1; text-align: center;">
     {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/dataset_vis.png" class="img-fluid" %}
-    <figcaption>A visualization of orientation biases.</figcaption>
+    <figcaption>Visualizations of unrotated samples from several materials datasets, with their canonicalization visible.</figcaption>
   </figure>
 
   <figure style="flex: 1; text-align: center;">
     {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/classifer_setup1.png" class="img-fluid" %}
-    <figcaption>The classifier test setup for symmetrized vs original data.</figcaption>
+    <figcaption>A classifier test for determining if a sample is from the original dataset, or rotated. With no distributional symmetry breaking, then no classifier can achieve better than $$50\%$$ test accuracy. However, if the original dataset was fully canonicalized, the classifier can theoretically achieve perfect accuracy (for an infinite group; otherwise, $$1-1/(2|G|)$$)</figcaption>
   </figure>
 
 </div>
@@ -133,19 +131,29 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
 
 ## Experiments
 
-Our theoretical analysis predicts that equivariant methods can sometimes harm performance when datasets exhibit distributional symmetry breaking. First, we measure $$m(p_X)$$ on multiple benchmark datasets to quantify the extent of distributional symmetry breaking, revealing that many datasets exhibit surprisingly strong canonicalization. We then evaluate equivariant, group-averaged, and stochastic group averaged models on each dataset to attempt to disentangle the impact of distributional symmetry breaking on model performance. While one may hypothesize that augmentation on highly canonicalized datasets may degrade performance, molecular datasets (such as QM7b and QM9) seem to defy this hypothesis, suggesting the influence of task-specific factors. **Emphasize it is a useful observation that these are canonicalized!**
+Our theoretical analysis predicts that equivariant methods can sometimes harm performance when datasets exhibit distributional symmetry breaking. First, we measure $$m(p_X)$$ on multiple benchmark datasets to quantify the extent of distributional symmetry breaking. Strikingly, we find that many widely-used benchmark datasets are strongly canonicalized, particularly molecular/materials science datasets used for benchmarking equivariant models. This reveals that real-world datasets often deviate substantially from the symmetry assumptions build into equivariant models.
+
+We then evaluate equivariant, group-averaged, and stochastic group-averaged models on each dataset to disentangle the relationship between canonicalization and model performance. While one might hypothesize that augmentation on highly canonicalized datasets would consistently degrade performance, molecular datasets (such as QM7b and QM9) defy this simple picture, suggesting that task-specific structure plays a crucial role in determining whether equivariance helps or hurts.
 
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/model_table.png" class="img-fluid" %}
 <div class="caption">
-    Comparison of train/test augmentation, group-averaged, and equivariant models across datasets. Augmentation: TT = train+test, TF = train only, FT = test only, FF = none. MNIST uses a $C_4$ group-averaged model; other datasets use stochastic group-averaging. MAE is reported for QM7b/QM9; equivariant baselines from e3nn. Best overall in bold, best within augmentation underlined. CNN used for MNIST, graph transformer for point clouds.
+    Comparison of train/test augmentation, group-averaged, and equivariant models across datasets. Augmentation: TT = train+test, TF = train only, FT = test only, FF = none. MNIST uses a $C_4$ group-averaged model; other datasets use stochastic group-averaging. MAE is reported for QM7b/QM9; equivariant baselines from e3nn. Best overall in bold, best within augmentation underlined. CNN used for MNIST, graph transformer for point clouds. $$m(p_X)$$ is denoted by classifier metric.
 </div>
 
 We discuss each dataset in turn:
 
-- **MNIST**: Rotational alignment is strong, with $$m(p_X)$$ high. Augmentation has minimal effect on performance, with no-augmentation (FF) setting performing slightly better.
-- **ModelNet40**: Class-specific $$m(p_X)$$ confirms high alignment. Augmentation generally reduces performance.
-- **QM9**: Highly canonicalized. Equivariance or augmentation improves performance for nearly all properties, highlighting dataset specific behavior.
-- **QM7b**: Highly canonicalized. Equivariance and augmentation are particularly beneficial for non-scalar properties (i.e. the dipole moment).
+- **MNIST**: Digits should intuitively be mostly canonicalized with respect to $$90^\circ$$ rotations ($$C_4$$). Rotational alignment is strong, with $$m(p_X)$$ high. Augmentation has minimal effect on performance, with no-augmentation (FF) setting performing slightly better.
+- **ModelNet40**: A more complex benchmark dataset for shape recognition consisting of 12,311 CAD models across 40 common object categories. Class-specific $$m(p_X)$$ confirms high alignment. Augmentation generally reduces performance.
+- **QM9**: Consists of 133k small stable organic molecules %
+with $$\leq$$ 9 heavy atoms, together with scalar quantum mechanical properties. Highly canonicalized due to preprocessing using the commercial software CORINA <d-cite key="qm9"></d-cite> with high $$m(p_X)$$. Equivariance or augmentation improves performance for nearly all properties, highlighting dataset specific behavior.
+- **QM7b**: 7,211 molecule subset of GDB-13 (a database of stable and synthetically accessible organic molecules <d-cite key="qm7original1"></d-cite>). We use a version of the dataset<d-cite key="qm7byang2019quantum"></d-cite> containing non-scalar material response properties to explore how distributional symmetry breaking affects higher order geometric quantities. Highly canonicalized. Equivariance and augmentation are particularly beneficial for non-scalar properties (i.e. the dipole moment).
+
+### Additional Materials Science Datasets
+
+We quantify distributional symmetry breaking for additional materials science datasets. 
+- **rMD17**: Contains 100k structures from molecular dynamics simulations <d-cite key="rMD17"></d-cite>. The degree of distributional symmetry breaking varies widely between molecules in rMD17. This could be both due to the initial conditions for the simulation, and the differing physical structures of each molecule.
+- **OC20**: Simulations consisting of adsorbates placed on periodic crystalline catalysts <d-cite key="OC20"></d-cite>. Both the adsorbate and the adsorbate + catalyst are highly canonicalized, likely due to the catalyst's alignment with the $$xy$$ plane.
+
 
 ## Hypotheses
 
