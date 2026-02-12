@@ -100,6 +100,18 @@ We can obtain samples from $$\bar{p}_X(x)$$ by applying random $$G$$-augmentatio
 
 <d-cite key="chiu2023nonparametric"></d-cite> sets $$d$$ to be the maximum mean discrepancy (MMD) with respect to some choice of kernel, corresponding to a non-parametric two sample statistical test. However, there is not always a clear choice of kernel. Thus, we propose a two sample classifier test, a common tool for detecting and quantifying distribution shift in machine learning <d-cite key="twosampletest"></d-cite>. 
 
+Our approach is both simple and interpretable as follows:
+1. Split the dataset in half
+2. Apply random transformations $$g \in G$$ to one half to create the augmented class.
+3. Train a small neural network to distinguish between original and transformed samples.
+4. Use the **test accuracy** as the metric:
+
+$$
+m(p_X) := \text{accuracy of classifier distinguishing } (p_X, \bar{p}_X)
+$$
+
+Intuitively, if the dataset is symmetric, the classifier can't tell the difference ($$m(p_X) \approx 0.5$$). If it is canonicalized, the classifier can easily tell ($$m(p_X) \approx 1).
+
 <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;">
 
   <figure style="flex: 1; text-align: center;">
@@ -108,12 +120,11 @@ We can obtain samples from $$\bar{p}_X(x)$$ by applying random $$G$$-augmentatio
   </figure>
 
   <figure style="flex: 1; text-align: center;">
-    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/classifier_setup.png" class="img-fluid" %}
+    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/classifier_setup1.png" class="img-fluid" %}
     <figcaption>The classifier test setup for symmetrized vs original data.</figcaption>
   </figure>
 
 </div>
-
 
 ## Images and Figures
 
