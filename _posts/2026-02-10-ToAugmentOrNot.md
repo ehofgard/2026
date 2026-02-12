@@ -31,7 +31,7 @@ authors:
 #      name: IAS, Princeton
 
 # must be the exact same name as your blogpost
-bibliography: 2026-02-10-ToAugmentOrNot.bib
+bibliography: 2026-02-10-ToAugmentOrNot
 
 # Add a table of contents to your post.
 #   - make sure that TOC names match the actual section names
