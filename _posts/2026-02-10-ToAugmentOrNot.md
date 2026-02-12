@@ -91,9 +91,11 @@ The figure above shows examples of **distributional symmetry breaking**. Basebal
 ## Proposed Metric
 
 Thus, we propose a metric to answer the question: **how much does the data distribution break symmetry?**.  We define a metric $$m(p_X)$$ which measures how close the data distribution $p_X$ is to being symmetric. Formally, the symmetrized density is
+
 $$
 \bar{p}_X(x) := \int_{g\in G}p_X(gx)dg
 $$
+
 We can obtain samples from $$\bar{p}_X(x)$$ by applying random $$G$$-augmentations. We would like $$m(p_X)$$ to approximate some notion of distance $$d$$ between $$p_X$$ and $$\bar{p}_X$$. Intuitively, if $$d$$ is small, the dataset is already symmetric. If $$d$$ is large, some orientations or transformations are more likely than others, illustrating distributional symmetry breaking.
 
 <d-cite key="chiu2023nonparametric"></d-cite> sets $$d$$ to be the maximum mean discrepancy (MMD) with respect to some choice of kernel, corresponding to a non-parametric two sample statistical test. However, there is not always a clear choice of kernel. Thus, we propose a two sample classifier test, a common tool for detecting and quantifying distribution shift in machine learning <d-cite key="twosampletest"></d-cite>. 
