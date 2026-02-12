@@ -148,6 +148,20 @@ We discuss each dataset in turn:
 with $$\leq$$ 9 heavy atoms, together with scalar quantum mechanical properties. Highly canonicalized due to preprocessing using the commercial software CORINA <d-cite key="qm9"></d-cite> with high $$m(p_X)$$. Equivariance or augmentation improves performance for nearly all properties, highlighting dataset specific behavior.
 - **QM7b**: 7,211 molecule subset of GDB-13 (a database of stable and synthetically accessible organic molecules <d-cite key="qm7original1"></d-cite>). We use a version of the dataset<d-cite key="qm7byang2019quantum"></d-cite> containing non-scalar material response properties to explore how distributional symmetry breaking affects higher order geometric quantities. Highly canonicalized. Equivariance and augmentation are particularly beneficial for non-scalar properties (i.e. the dipole moment).
 
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;">
+
+  <figure style="flex: 1; text-align: center;">
+    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/ModelNet_metric.png" class="img-fluid" %}
+    <figcaption>ModelNet40 $$m(p_X)$$ histogram over classes.</figcaption>
+  </figure>
+
+  <figure style="flex: 1; text-align: center;">
+    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/rMD17_metric.png" class="img-fluid" %}
+    <figcaption>Test accuracy vs rotated fraction for aspirin and ethanol from rMD17, OC20 surface+adsorbate, OC20 adsorbate, and QM9.</figcaption>
+  </figure>
+
+</div>
+
 ### Additional Materials Science Datasets
 
 We quantify distributional symmetry breaking for additional materials science datasets. 
@@ -155,8 +169,17 @@ We quantify distributional symmetry breaking for additional materials science da
 - **OC20**: Simulations consisting of adsorbates placed on periodic crystalline catalysts <d-cite key="OC20"></d-cite>. Both the adsorbate and the adsorbate + catalyst are highly canonicalized, likely due to the catalyst's alignment with the $$xy$$ plane.
 - **LLM Dataset**: Interest has recently grown in using LLMs for crystal structure generation. <d-cite key="gruver2024finetuned"></d-cite> convert crystals into a text format, which requires listing their atoms in some ordering. The authors independently noted that permutation augmentations hurt generative performance, even though the task is ostensibly permutation invariant. We postulated that this phenomenon was due to distributional symmetry-breaking, i.e. conventions in the generation of atom order. We thus trained a classifier head on a pretrained DistilBERT transformer to distinguish between permuted and unpermuted datapoints, and found $$m(p_X)= 95\%$$ accuracy.
 
-## Hypotheses
 
+**Key Observations:** $$m(p_X)$$ provides a concrete way to measure the degree of canonicalization present in a datatset. Many widely-used benchmarks — especially in molecular and materials science — deviate significantly from the symmetry assumptions built into equivariant models. However, **task structure matters**, as equivariant models/data augmentation perform well on molecular datasets.
+
+## Hypotheses
+We present hypotheses for the differing performance of equivariant models/data augmentation across datasets.
+
+### Task Dependent Metric
+The value $$m(p_X)$$ determines whether there is discernible lack of uniformity over group transformations in the unlabeled dataset. However, it does not capture whether that distributional symmetry breaking (e.g. preferred orientations) is correlated with the specific task labels,  such as in the case of MNIST 6s/9s. If it does, then we hypothesize that augmenting is a poor choice, as it discards task-relevant information contained in orientations. Thus, we introduce a metric of **task-useful** distributional symmetry breaking. 
+
+Let $$c\colon\mathcal{X} \rightarrow G$$ be a canonicalization function, denoting where on each orbit $$x$$ is. Since data augmentation destroys any information contained in $$c(x)$$, we wish to understand the dependence between orientations $$c(x)$ and labels $f(x)$$. A natural way to do this is to predict $$f(x)$$ directly from $$c(x)$$, where $$c(x)$$ is a randomly initialized, untrained equivariant neural network (a canonicalization function). We then compare the test criterion $$\mathcal{L}(c(x) \to f(x))$$ to that obtained when the inputs are randomly transformed by elements of the given group, $$\mathcal{L}_{\text{rot}} = \mathcal{L}(c(gx) \to f(gx)), g \sim G$$.  
+which removes any task-relevant information in the orientations (where $$\mathcal{L}$$ is the performance on the test set, e.g. accuracy/MAE).
 
 
 ## Conclusion
