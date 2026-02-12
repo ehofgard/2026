@@ -137,7 +137,7 @@ We then evaluate equivariant, group-averaged, and stochastic group-averaged mode
 
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/model_table.png" class="img-fluid" %}
 <div class="caption">
-    Comparison of train/test augmentation, group-averaged, and equivariant models across datasets. Augmentation: TT = train+test, TF = train only, FT = test only, FF = none. MNIST uses a $C_4$ group-averaged model; other datasets use stochastic group-averaging. MAE is reported for QM7b/QM9; equivariant baselines from e3nn. Best overall in bold, best within augmentation underlined. CNN used for MNIST, graph transformer for point clouds. $$m(p_X)$$ is denoted by classifier metric.
+    Comparison of train/test augmentation, group-averaged, and equivariant models across datasets. Augmentation: TT = train+test, TF = train only, FT = test only, FF = none. MNIST uses a group-averaged model; other datasets use stochastic group-averaging. MAE is reported for QM7b/QM9; equivariant baselines from e3nn. Best overall in bold, best within augmentation underlined. CNN used for MNIST, graph transformer for point clouds.
 </div>
 
 We discuss each dataset in turn:
@@ -152,7 +152,7 @@ with $$\leq$$ 9 heavy atoms, together with scalar quantum mechanical properties.
 
   <figure style="flex: 1; text-align: center;">
     {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/ModelNet_metric.png" class="img-fluid" %}
-    <figcaption>ModelNet40 $$m(p_X)$$ histogram over classes.</figcaption>
+    <figcaption>ModelNet40 classifier metric histogram over classes.</figcaption>
   </figure>
 
   <figure style="flex: 1; text-align: center;">
@@ -186,9 +186,10 @@ We first explore an artificial **QM7b dipole** canonicalization. This is a const
 {% include figure.liquid 
   path="assets/img/2026-02-10-ToAugmentOrNot/task_dependent_results.png"
   class="img-fluid"
-  caption="(Top) QM7b dipole canonicalization performance. (Bottom) Task-dependent metric: Accuracy (ModelNet) or MAE (QM7b/QM9) of predicting $$f(x)$$ from $$c(x)$$ versus a baseline with random rotations. The relative signal shows how $$\mathcal{L}$$ changes under rotation: $$\mathcal{L}_{rot} / \mathcal{L}$$ for error metrics (lower better) and $$\mathcal{L} / \mathcal{L}_{rot}$$ for accuracy (higher better). Values averaged over five seeds."
+  caption="(Top) QM7b dipole canonicalization performance. (Bottom) Task-dependent metric: Accuracy (ModelNet) or MAE (QM7b/QM9) of predicting the label from the canonicalization versus a baseline with random rotations. Values averaged over five seeds."
 %}
 
+The relative signal above shows the accuracy of predicting $$f(x)$$ from $$c(x)$$ vs. a baseline with randon rotations. The relative signal shows how $$\mathcal{L}$$ changes under rotation: $$\mathcal{L}_{rot} / \mathcal{L}$$ for error metrics (lower better) and $$\mathcal{L} / \mathcal{L}_{rot}$$ for accuracy (higher better). 
 
 ### Locality
 
