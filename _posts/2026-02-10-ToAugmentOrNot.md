@@ -120,7 +120,7 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
   </figure>
 
   <figure style="flex: 1; text-align: center;">
-    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/classifier_setup1.png" class="img-fluid" %}
+    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/classifer_setup1.png" class="img-fluid" %}
     <figcaption>The classifier test setup for symmetrized vs original data.</figcaption>
   </figure>
 
