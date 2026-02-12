@@ -38,9 +38,10 @@ bibliography: 2026-02-10-ToAugmentOrNot.bib
 #     for hyperlinks within the post to work correctly.
 #   - please use this format rather than manually creating a markdown table of contents.
 toc:
+  - name: Introduction
   - name: Distributional Symmetry Breaking
   - name: Proposed Metric
-  - name: Invariant Regression under Data Asymmetry
+  - name: Theory: Invariant Regression under Data Asymmetry
   - name: Experiments
   - name: Task Dependent Metric
   - name: Conclusion
@@ -67,9 +68,26 @@ _styles: >
 
 **TL;DR:** We explore the implications of symmetry breaking in data distributions and present a new metric to quantify the amount of symmetry broken. We explore the implications of distributional symmetry breaking for machine learning practitioners. 
 
+## Introduction
+
+Both data augmentation and equivariant neural networks have become popular tools in modern machine learning to enforce symmetries, with equivariant neural networks achieving superior performance across materials science <d-cite key="liao2023equiformerv2"></d-cite>, robotics <d-cite key="wang2024equivariant"></d-cite>, drug discovery <d-cite key="igashov2024equivariant"></d-cite>, fluid dynamics <d-cite key="wangincorporating"></d-cite>, computer vision <d-cite key="esteves2019equivariant"></d-cite>, and beyond. For $g\in G$ a group symmetry transformation, such as a rotation or permutation, a function $$f$$ is equivariant if $$f(gx) = g(fx)$$, and invariant if $$f(gx) = f(x)$$. Similarly, a model $$\text{NN}$$ is equivariant if it is architecturally constrained such that $$\text{NN}(gx)=g\text{NN}(x)$$, tying the predictions for $$x$$ and $$gx$$. Data augmentation may also be used to enforce symmetries by applying a random group element $$g$$ to each input in the training set and its corresponding label, thus encouraging the model to learn equivariant or invariant behavior. 
+
+Both approaches rely on the assumption that the ground truth function $$f$$ is equivariant. However, there is often an implicit assumption that the data distribution itself is symmetric, i.e. $$p(x) \approx p(gx)$$. We refer to violations of this assumption as **distributional symmetry breaking**. In this work, we study distributional symmetry breaking. Our main contributions are:
+
+- **A classifier-based diagnostic:**  
+  We introduce a simple two-sample test to measure distributional symmetry breaking.
+
+- **Theoretical analysis:**  
+  We show that data augmentation can harm performance under certain distributional conditions.
+
+- **Empirical study:**  
+  We demonstrate that widely used 3D datasets are strongly canonicalized.
+
+
+
 ## Distributional Symmetry Breaking
 
-Data augmentation and equivariant neural networks assume that transformed 
+Data augmentation and equivariant neural networks assume that transformed  
 
 ## Test Figure
 
