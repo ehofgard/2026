@@ -43,7 +43,9 @@ toc:
   - name: Proposed Metric
   - name: Theory
   - name: Experiments
-  - name: Task Dependent Metric
+  - name: Hypotheses for Empirical Behavior
+    -name: Task Dependent Metric
+    -name: Local Equivariance
   - name: Conclusion
 
 # Below is an example of injecting additional post-specific styles.
@@ -78,7 +80,7 @@ Both approaches rely on the assumption that the ground truth function $$f$$ is e
 
 - **Theoretical analysis:** We show that data augmentation can harm performance under certain distributional conditions.
 
-- **Empirical study:** We demonstrate that widely used 3D datasets are strongly canonicalized.
+- **Empirical studies:** We demonstrate that widely used 3D datasets are strongly canonicalized. We correspondingly evaluate the impacts of equivariant methods on datasets across domains and propose hypotheses for differing behaviors.
 
 ## Distributional Symmetry Breaking
 
@@ -125,6 +127,11 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
   </figure>
 
 </div>
+
+## Theory
+
+## Experiments
+
 
 ## Images and Figures
 
