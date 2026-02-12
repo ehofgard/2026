@@ -178,9 +178,15 @@ We present hypotheses for the differing performance of equivariant models/data a
 ### Task Dependent Metric
 The value $$m(p_X)$$ determines whether there is discernible lack of uniformity over group transformations in the unlabeled dataset. However, it does not capture whether that distributional symmetry breaking (e.g. preferred orientations) is correlated with the specific task labels,  such as in the case of MNIST 6s/9s. If it does, then we hypothesize that augmenting is a poor choice, as it discards task-relevant information contained in orientations. Thus, we introduce a metric of **task-useful** distributional symmetry breaking. 
 
-Let $$c\colon\mathcal{X} \rightarrow G$$ be a canonicalization function, denoting where on each orbit $$x$$ is. Since data augmentation destroys any information contained in $$c(x)$$, we wish to understand the dependence between orientations $$c(x)$ and labels $f(x)$$. A natural way to do this is to predict $$f(x)$$ directly from $$c(x)$$, where $$c(x)$$ is a randomly initialized, untrained equivariant neural network (a canonicalization function). We then compare the test criterion $$\mathcal{L}(c(x) \to f(x))$$ to that obtained when the inputs are randomly transformed by elements of the given group, $$\mathcal{L}_{\text{rot}} = \mathcal{L}(c(gx) \to f(gx)), g \sim G$$.  
+Let $$c\colon\mathcal{X} \rightarrow G$$ be a canonicalization function, denoting where on each orbit $$x$$ is. Since data augmentation destroys any information contained in $$c(x)$$, we wish to understand the dependence between orientations $$c(x)$$ and labels $$f(x)$$. A natural way to do this is to predict $$f(x)$$ directly from $$c(x)$$, where $$c(x)$$ is a randomly initialized, untrained equivariant neural network (a canonicalization function). We then compare the test criterion $$\mathcal{L}(c(x) \to f(x))$$ to that obtained when the inputs are randomly transformed by elements of the given group, $$\mathcal{L}_{\text{rot}} = \mathcal{L}(c(gx) \to f(gx)), g \sim G$$.  
 which removes any task-relevant information in the orientations (where $$\mathcal{L}$$ is the performance on the test set, e.g. accuracy/MAE).
 
+We first explore an artificial **QM7b dipole** canonicalization. This is a constructed example of a very task-relevant canonicalization, where molecules are aligned such that their dipole moments are along the $z$ axis. This makes it easy for a non-equivariant model to predict dipoles, while an equivariant model cannot exploit this alignment. This is confirmed empirically where with the dipole canonicalization, the FF augmentation setting outperforms an equivariant model. The task-dependent metric indeed yields a large signal when applied to the dipole-canonicalized dataset. **ModelNet** is another case where equivariance harms performance, and the task-dependent metric shows a large signal. In contrast, for the **QM9** properties shown, the metric shows a small signal. Thus, our preliminary experiments show that the task-dependent metric is generally larger for tasks where equivariance does **not** improve performance.
+
+{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/task_dependent_results.png" class="img-fluid" %}
+<div class="caption">
+    (Top). QM7 
+</div>
 
 ## Conclusion
 Advice for practitioners
