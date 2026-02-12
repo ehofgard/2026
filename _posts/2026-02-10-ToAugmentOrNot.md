@@ -185,7 +185,24 @@ We first explore an artificial **QM7b dipole** canonicalization. This is a const
 
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/task_dependent_results.png" class="img-fluid" %}
 <div class="caption">
-    (Top). QM7 
+    (Top). QM7b dipole canonicalization performance. (Bottom) Task-dependent metric: Accuracy (ModelNet) or MAE (QM7b/QM9) of predicting $$f(x)$$ from $$c(x)$$ versus a baseline with random rotations. The relative signal shows how $$\mathcal{L}$$ changes under rotation: $$\mathcal{L}\text{rot} / \mathcal{L}$$ for error metrics (lower better) and $$\mathcal{L} / \mathcal{L}\text{rot}$$ for accuracy (higher better). Values are averaged over five seeds.
+</div>
+
+### Locality
+
+One possible explanation for the mixed empirical results is that equivariant models primarily exploit local equivariance, rather than global symmetry. Equivariant CNNs and GNNs compute features that are equivariant functions of their receptive fields, meaning they are inherently locally equivariant <d-cite key="musaelian2023local"></d-cite>. The practical benefit of equivariance may therefore come from capturing structure in small, recurring motifs — for example, local chemical environments in molecules — rather than enforcing strict global symmetry <d-cite key="du2022se3,lippmann2025beyond"></d-cite>.
+
+This perspective helps clarify the apparent discrepancy between ModelNet40 and QM9. Both datasets are strongly canonicalized at the global level. The key difference may lie in how symmetry behaves locally. To test this hypothesis, we use $$m(p_X)$$ to compare global and local distributional symmetry breaking.
+
+Concretely, we generate the local QM9 dataset by extracting local neighborhoods (by bonds) from each molecule in QM9. We compare $$m(p_X)$$ between local and ordinary QM9 in three settings: the original datasets (exploration), and under random rotation and manual canonicalization (as sanity checks, which should yield $$50\%$$ and $$100\%$$, respectively). We find that the detection accuracy is much lower for local QM9, indicating a lower degree of local distributional symmetry breaking! 
+
+For ModelNet40, we analogously constructed a local dataset by randomly selecting one point from each original, $1024$-point point cloud, and then collecting its $N$ nearest neighbors. When the number of sampled points is small, the metric drops significantly, indicating that local regions of the point clouds are not inherently canonicalized. However, as neighborhoods grow, canonical alignment quickly re-emerges. These results suggest that:
+- In QM9, useful predictive structure resides in locally isotropic motifs. Equivariant models benefit from modeling these.
+- In ModelNet40, object-level canonicalization is more tightly coupled to the task (object identity), so breaking that alignment through augmentation removes useful signal. Thus, the relevant question is not simply whether a dataset is canonicalized, but at what scale canonicalization interacts with the task. Local equivariance may help when symmetry breaking is primarily global and incidental (as in QM9), but hurt when canonical alignment itself carries task-relevant information (as in ModelNet40).
+
+{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/locality_exp.png" class="img-fluid" %}
+<div class="caption">
+    Left: The local QM9 dataset (top) and results (bottom). Right: Local ModelNet40 results.
 </div>
 
 ## Conclusion
