@@ -31,7 +31,7 @@ authors:
 #      name: IAS, Princeton
 
 # must be the exact same name as your blogpost
-bibliography: 2026-02-10-ToAugmentOrNot
+bibliography: 2026-02-10-ToAugmentOrNot.bib
 
 # Add a table of contents to your post.
 #   - make sure that TOC names match the actual section names
@@ -47,6 +47,7 @@ toc:
     -name: Task Dependent Metric
     -name: Local Equivariance
   - name: Conclusion
+  - name: References
 
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
@@ -132,6 +133,9 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
 
 ## Experiments
 
+## Hypotheses
+
+## References
 
 ## Images and Figures
 
