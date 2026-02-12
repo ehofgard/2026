@@ -183,10 +183,12 @@ which removes any task-relevant information in the orientations (where $$\mathca
 
 We first explore an artificial **QM7b dipole** canonicalization. This is a constructed example of a very task-relevant canonicalization, where molecules are aligned such that their dipole moments are along the $z$ axis. This makes it easy for a non-equivariant model to predict dipoles, while an equivariant model cannot exploit this alignment. This is confirmed empirically where with the dipole canonicalization, the FF augmentation setting outperforms an equivariant model. The task-dependent metric indeed yields a large signal when applied to the dipole-canonicalized dataset. **ModelNet** is another case where equivariance harms performance, and the task-dependent metric shows a large signal. In contrast, for the **QM9** properties shown, the metric shows a small signal. Thus, our preliminary experiments show that the task-dependent metric is generally larger for tasks where equivariance does **not** improve performance.
 
-{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/task_dependent_results.png" class="img-fluid" %}
-<div class="caption">
-    (Top). QM7b dipole canonicalization performance. (Bottom) Task-dependent metric: Accuracy (ModelNet) or MAE (QM7b/QM9) of predicting $$f(x)$$ from $$c(x)$$ versus a baseline with random rotations. The relative signal shows how $$\mathcal{L}$$ changes under rotation: $$\mathcal{L}\text{rot} / \mathcal{L}$$ for error metrics (lower better) and $$\mathcal{L} / \mathcal{L}\text{rot}$$ for accuracy (higher better). Values are averaged over five seeds.
-</div>
+{% include figure.liquid 
+  path="assets/img/2026-02-10-ToAugmentOrNot/task_dependent_results.png"
+  class="img-fluid"
+  caption="(Top) QM7b dipole canonicalization performance. (Bottom) Task-dependent metric: Accuracy (ModelNet) or MAE (QM7b/QM9) of predicting $$f(x)$$ from $$c(x)$$ versus a baseline with random rotations. The relative signal shows how $$\mathcal{L}$$ changes under rotation: $$\mathcal{L}_{rot} / \mathcal{L}$$ for error metrics (lower better) and $$\mathcal{L} / \mathcal{L}_{rot}$$ for accuracy (higher better). Values averaged over five seeds."
+%}
+
 
 ### Locality
 
@@ -198,7 +200,9 @@ Concretely, we generate the local QM9 dataset by extracting local neighborhoods 
 
 For ModelNet40, we analogously constructed a local dataset by randomly selecting one point from each original, $1024$-point point cloud, and then collecting its $N$ nearest neighbors. When the number of sampled points is small, the metric drops significantly, indicating that local regions of the point clouds are not inherently canonicalized. However, as neighborhoods grow, canonical alignment quickly re-emerges. These results suggest that:
 - In QM9, useful predictive structure resides in locally isotropic motifs. Equivariant models benefit from modeling these.
-- In ModelNet40, object-level canonicalization is more tightly coupled to the task (object identity), so breaking that alignment through augmentation removes useful signal. Thus, the relevant question is not simply whether a dataset is canonicalized, but at what scale canonicalization interacts with the task. Local equivariance may help when symmetry breaking is primarily global and incidental (as in QM9), but hurt when canonical alignment itself carries task-relevant information (as in ModelNet40).
+- In ModelNet40, object-level canonicalization is more tightly coupled to the task (object identity), so breaking that alignment through augmentation removes useful signal. 
+
+Thus, the relevant question is not simply whether a dataset is canonicalized, but at what scale canonicalization interacts with the task. Local equivariance may help when symmetry breaking is primarily global and incidental (as in QM9), but hurt when canonical alignment itself carries task-relevant information (as in ModelNet40).
 
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/locality_exp.png" class="img-fluid" %}
 <div class="caption">
