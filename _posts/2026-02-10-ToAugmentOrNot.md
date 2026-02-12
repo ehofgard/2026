@@ -103,7 +103,7 @@ We can obtain samples from $$\bar{p}_X(x)$$ by applying random $$G$$-augmentatio
 <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;">
 
   <figure style="flex: 1; text-align: center;">
-    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/dataset_vis" class="img-fluid" %}
+    {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/dataset_vis.png" class="img-fluid" %}
     <figcaption>A visualization of orientation biases.</figcaption>
   </figure>
 
