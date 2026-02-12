@@ -74,42 +74,19 @@ Both data augmentation and equivariant neural networks have become popular tools
 
 Both approaches rely on the assumption that the ground truth function $$f$$ is equivariant. However, there is often an implicit assumption that the data distribution itself is symmetric, i.e. $$p(x) \approx p(gx)$$. We refer to violations of this assumption as **distributional symmetry breaking**. In this work, we study distributional symmetry breaking. Our main contributions are:
 
-- **A classifier-based diagnostic:**  
-  We introduce a simple two-sample test to measure distributional symmetry breaking.
+- **A classifier-based diagnostic:** We introduce a simple two-sample test to measure distributional symmetry breaking.
 
-- **Theoretical analysis:**  
-  We show that data augmentation can harm performance under certain distributional conditions.
+- **Theoretical analysis:** We show that data augmentation can harm performance under certain distributional conditions.
 
-- **Empirical study:**  
-  We demonstrate that widely used 3D datasets are strongly canonicalized.
-
-
+- **Empirical study:** We demonstrate that widely used 3D datasets are strongly canonicalized.
 
 ## Distributional Symmetry Breaking
 
-Data augmentation and equivariant neural networks assume that transformed  
-
-## Test Figure
-
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/orientations.png" class="img-fluid" %}
-
-
-
-By integrating physical symmetryies into the model architecture as group invariances, equivariant neural networks ha
-This theme supports rendering beautiful math in inline and display modes using [MathJax 3](https://www.mathjax.org/) engine.
-You just need to surround your math expression with `$$`, like `$$ E = mc^2 $$`.
-If you leave it inside a paragraph, it will produce an inline expression, just like $$ E = mc^2 $$.
-
-To use display mode, again surround your expression with `$$` and place it as a separate paragraph.
-Here is an example:
-
-$$
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
-$$
-
-Note that MathJax 3 is [a major re-write of MathJax](https://docs.mathjax.org/en/latest/upgrading/whats-new-3.0.html)
-that brought a significant improvement to the loading and rendering speed, which is now
-[on par with KaTeX](http://www.intmath.com/cg5/katex-mathjax-comparison.php).
+<div class="caption">
+    A visualization of orientation biases.
+</div>
+The figure above shows examples of **distributional symmetry breaking**. Baseballs are likely to occur in any orientation in photos, and are therefore uniform across orbits. Coffee mugs are more likely to appear with the handle on the side, illustrating distributional symmetry breaking. The middle shows an example of **canonicalization**, where an object only ever apprears in one canonical orientation. This is the strongest form of distributional symmetry breaking. Canonicalization can also be **inherent**, such as a digit's orientation that determines whether it is a 6 or a 9, or **user-defined**, such as the orientiation of a crystal lattice.
 
 ## Images and Figures
 
