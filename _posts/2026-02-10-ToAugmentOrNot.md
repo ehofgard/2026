@@ -122,7 +122,7 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
 
   <figure style="flex: 1; text-align: center;">
     {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/classifer_setup1.png" class="img-fluid" %}
-    <figcaption>A classifier test for determining if a sample is from the original dataset, or rotated. With no distributional symmetry breaking, then no classifier can achieve better than $$50\%$$ test accuracy. However, if the original dataset was fully canonicalized, the classifier can theoretically achieve perfect accuracy (for an infinite group; otherwise, $$1-1/(2|G|)$$)</figcaption>
+    <figcaption>A classifier test for determining if a sample is from the original dataset, or rotated.</figcaption>
   </figure>
 
 </div>
@@ -153,9 +153,11 @@ with $$\leq$$ 9 heavy atoms, together with scalar quantum mechanical properties.
 We quantify distributional symmetry breaking for additional materials science datasets. 
 - **rMD17**: Contains 100k structures from molecular dynamics simulations <d-cite key="rMD17"></d-cite>. The degree of distributional symmetry breaking varies widely between molecules in rMD17. This could be both due to the initial conditions for the simulation, and the differing physical structures of each molecule.
 - **OC20**: Simulations consisting of adsorbates placed on periodic crystalline catalysts <d-cite key="OC20"></d-cite>. Both the adsorbate and the adsorbate + catalyst are highly canonicalized, likely due to the catalyst's alignment with the $$xy$$ plane.
-
+- **LLM Dataset**: Interest has recently grown in using LLMs for crystal structure generation. <d-cite key="gruver2024finetuned"></d-cite> convert crystals into a text format, which requires listing their atoms in some ordering. The authors independently noted that permutation augmentations hurt generative performance, even though the task is ostensibly permutation invariant. We postulated that this phenomenon was due to distributional symmetry-breaking, i.e. conventions in the generation of atom order. We thus trained a classifier head on a pretrained DistilBERT transformer to distinguish between permuted and unpermuted datapoints, and found $$m(p_X)= 95\%$$ accuracy.
 
 ## Hypotheses
+
+
 
 ## Conclusion
 Advice for practitioners
