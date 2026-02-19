@@ -129,6 +129,22 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
 
 ## Theory
 
+We study two approaches to enforce symmetries under the presence of distributional symmetry breaking. **Data augmentation**: transform inputs by symmetry operations during training so the model learns to ignore those transformations. Another approach is **test-time symmetrization**, where we average predictions over symmetry transformations at inference time. These techniques are usually assumed to help — or at least not hurt — when the ground truth is invariant. But that assumption hides a subtle issue: the *data distribution itself* might not respect the symmetry.
+
+To understand this, we analyzed a simple but revealing setting: high-dimensional ridge regression where the true function is invariant, but the input covariance may not be. In particular, invariant and non-invariant features can be **correlated**. Our theory shows that **even when the ground-truth function is invariant, data augmentation and test-time symmetrization can be harmful when invariant and non-invariant features are strongly correlated.**
+
+We study two regimes:
+- **Under-parametrized regime:** Correlations between invariant and non-invariant features can drive the risk of test-time symmetrization to infinity. However, data augmentation is always helpful, even if $$p_X$$ is not invariant.
+- **Over-parametrized regime:** This settings captures some of the behavior of real-world neural networks. We find that if invariant and non-invariant features are strongly correlated in a small number of directions, data augmentation can be harmful.
+
+We thus find invariance interacts with data geometry and high-dimensional statistics in subtle ways. When the data distribution breaks symmetry — even slightly — enforcing invariance can destroy useful signal. And in modern over-parameterized regimes, reducing effective dimension can itself introduce instability. The key lesson is that invariance is not just a property of the target function — it’s also a property of the data distribution. If those two don’t align, enforcing symmetry can hurt.
+
+{% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/data_aug_risk.png" class="img-fluid" %}
+<div class="caption">
+    Left: Results in our minimal model for the over-parameterized regime, with mean and standard deviation across 200 trials. Small $$\sigma_w$$ corresponds to strong correlations between invariant and non-invariant features, and large $$\sigma_w$$ to no distributional symmetry breaking. Right: Corresponding values of $$m(p_X)$$ at varying $$\sigma_w$$, accurately reflecting the change in distributional symmetry-breaking.
+</div>
+
+
 ## Experiments
 
 Our theoretical analysis predicts that equivariant methods can sometimes harm performance when datasets exhibit distributional symmetry breaking. First, we measure $$m(p_X)$$ on multiple benchmark datasets to quantify the extent of distributional symmetry breaking. Strikingly, we find that many widely-used benchmark datasets are strongly canonicalized, particularly molecular/materials science datasets used for benchmarking equivariant models. This reveals that real-world datasets often deviate substantially from the symmetry assumptions build into equivariant models.
@@ -166,7 +182,7 @@ with $$\leq$$ 9 heavy atoms, together with scalar quantum mechanical properties.
 
 We quantify distributional symmetry breaking for additional materials science datasets. 
 - **rMD17**: Contains 100k structures from molecular dynamics simulations <d-cite key="rMD17"></d-cite>. The degree of distributional symmetry breaking varies widely between molecules in rMD17. This could be both due to the initial conditions for the simulation, and the differing physical structures of each molecule.
-- **OC20**: Simulations consisting of adsorbates placed on periodic crystalline catalysts <d-cite key="ocp-dataset"></d-cite>. Both the adsorbate and the adsorbate + catalyst are highly canonicalized, likely due to the catalyst's alignment with the $$xy$$ plane.
+- **OC20**: Simulations consisting of adsorbates placed on periodic crystalline catalysts <d-cite key="OC20"></d-cite>. Both the adsorbate and the adsorbate + catalyst are highly canonicalized, likely due to the catalyst's alignment with the $$xy$$ plane.
 - **LLM Dataset**: Interest has recently grown in using LLMs for crystal structure generation. <d-cite key="gruver2024finetuned"></d-cite> convert crystals into a text format, which requires listing their atoms in some ordering. The authors independently noted that permutation augmentations hurt generative performance, even though the task is ostensibly permutation invariant. We postulated that this phenomenon was due to distributional symmetry-breaking, i.e. conventions in the generation of atom order. We thus trained a classifier head on a pretrained DistilBERT transformer to distinguish between permuted and unpermuted datapoints, and found $$m(p_X)= 95\%$$ accuracy.
 
 
