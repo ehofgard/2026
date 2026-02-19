@@ -141,7 +141,7 @@ We thus find invariance interacts with data geometry and high-dimensional statis
 
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/data_aug_risk.png" class="img-fluid" %}
 <div class="caption">
-    Left: Results in our minimal model for the over-parameterized regime. Right: Corresponding values of $$m(p_X)$$ at varying $$\sigma_w$$.
+    Left: Results in our minimal model for the over-parameterized regime. Right: Corresponding values of $$m(p_X)$$.
 </div>
 
 
