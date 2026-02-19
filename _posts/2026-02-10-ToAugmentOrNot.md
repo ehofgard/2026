@@ -129,7 +129,7 @@ Intuitively, if the dataset is symmetric, the classifier can't tell the differen
 
 ## Theory
 
-We study two approaches to enforce symmetries under the presence of distributional symmetry breaking. **Data augmentation**: transform inputs by symmetry operations during training so the model learns to ignore those transformations. Another approach is **test-time symmetrization**, where we average predictions over symmetry transformations at inference time. These techniques are usually assumed to help — or at least not hurt — when the ground truth is invariant. But that assumption hides a subtle issue: the *data distribution itself* might not respect the symmetry.
+We study two approaches to enforce symmetries under the presence of distributional symmetry breaking. **Data augmentation** transform inputs by symmetry operations during training so the model learns to ignore those transformations. Another approach is **test-time symmetrization**, where we average predictions over symmetry transformations at inference time. These techniques are usually assumed to help — or at least not hurt — when the ground truth is invariant. But that assumption hides a subtle issue: the *data distribution itself* might not respect the symmetry.
 
 To understand this, we analyzed a simple but revealing setting: high-dimensional ridge regression where the true function is invariant, but the input covariance may not be. In particular, invariant and non-invariant features can be **correlated**. Our theory shows that **even when the ground-truth function is invariant, data augmentation and test-time symmetrization can be harmful when invariant and non-invariant features are strongly correlated.**
 
@@ -141,7 +141,7 @@ We thus find invariance interacts with data geometry and high-dimensional statis
 
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/data_aug_risk.png" class="img-fluid" %}
 <div class="caption">
-    Left: Results in our minimal model for the over-parameterized regime, with mean and standard deviation across 200 trials. Small $$\sigma_w$$ corresponds to strong correlations between invariant and non-invariant features, and large $$\sigma_w$$ to no distributional symmetry breaking. Right: Corresponding values of $$m(p_X)$$ at varying $$\sigma_w$$, accurately reflecting the change in distributional symmetry-breaking.
+    Left: Results in our minimal model for the over-parameterized regime. Right: Corresponding values of $$m(p_X)$$ at varying $$\sigma_w$$, accurately reflecting the change in distributional symmetry-breaking.
 </div>
 
 
