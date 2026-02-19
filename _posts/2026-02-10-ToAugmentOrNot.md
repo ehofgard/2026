@@ -140,10 +140,8 @@ We study two regimes:
 We thus find invariance interacts with data geometry and high-dimensional statistics in subtle ways. When the data distribution breaks symmetry — even slightly — enforcing invariance can destroy useful signal. And in modern over-parameterized regimes, reducing effective dimension can itself introduce instability. The key lesson is that invariance is not just a property of the target function — it’s also a property of the data distribution. If those two don’t align, enforcing symmetry can hurt.
 
 {% include figure.liquid path="assets/img/2026-02-10-ToAugmentOrNot/data_aug_risk.png" class="img-fluid" %}
-<div class="caption">
-    Left: Results in our minimal model for the over-parameterized regime. Right: Corresponding values of $$m(p_X)$$.
-</div>
 
+The left panel shows results in our minimal model for the over-parameterized regime, with mean and standard deviation across 200 trials. Small $$\sigma_w$$ corresponds to strong correlations between invariant and non-invariant features, and large $$\sigma_w$$ to no distributional symmetry breaking. In agreement with our theory, data augmentation is harmful in the small $$\sigma_w$$ setting, as the excess risk is higher.The right shows corresponding values of $$m(p_X)$$ at varying $$\sigma_w$$, accurately reflecting the change in distributional symmetry-breaking.
 
 ## Experiments
 
