@@ -10,6 +10,8 @@ mermaid:
   enabled: true
   zoomable: true
 
+authors:
+  - name: Anonymous
 
 # must be the exact same name as your blogpost
 bibliography: 2026-04-14-ToAugmentOrNot.bib
